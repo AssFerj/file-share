@@ -1,50 +1,95 @@
-# 📤 FileShare - SaaS de Compartilhamento de Arquivos
+# 📤 FileShare - Compartilhamento de Arquivos SaaS
 
-Sistema completo de compartilhamento de arquivos com upload temporário, desenvolvido com Next.js 15, TypeScript, Prisma ORM, MongoDB Atlas e Cloudflare R2.
+Sistema completo de compartilhamento de arquivos com planos Free e Premium, desenvolvido com Next.js 15, TypeScript, Prisma ORM, MongoDB Atlas e Cloudflare R2.
 
-## 🚀 Funcionalidades
+## ✨ Funcionalidades
 
-- ✅ **Autenticação completa** (login/cadastro com NextAuth.js)
-- ✅ Upload de arquivos até 4GB (plano gratuito)
+### 🌐 Upload e Compartilhamento
+- ✅ Upload de arquivos até **4GB** (plano Free) ou **50GB** (plano Premium)
+- ✅ Upload público sem necessidade de login
+- ✅ Upload autenticado com associação ao usuário
 - ✅ Geração automática de links públicos para compartilhamento
-- ✅ Download sem necessidade de login
-- ✅ Expiração automática de arquivos (5h no plano gratuito)
+- ✅ Progress bar em tempo real durante upload
+- ✅ Upload direto para Cloudflare R2 (sem passar pelo servidor)
+
+### 📥 Download e Acesso
+- ✅ Download público sem necessidade de login
+- ✅ Página de download com informações do arquivo
+- ✅ Contador de downloads por arquivo
+- ✅ Links de download com expiração automática
+
+### 👤 Autenticação e Usuários
+- ✅ Sistema completo de autenticação com NextAuth.js v4
+- ✅ Registro de novos usuários
+- ✅ Login/Logout funcional
+- ✅ Proteção de rotas com middleware
+- ✅ Roles de usuário (user/admin)
+
+### 📊 Sistema Multi-Plano
+
+#### Plano Free
+- 📦 Arquivos de até **4GB**
+- ⏱️ Retenção de **5 horas**
+- 🆓 Totalmente gratuito
+- 📤 Upload ilimitado
+- 🚫 Sem anúncios
+
+#### Plano Premium
+- 📦 Arquivos de até **50GB**
+- ⏱️ Retenção de **30 dias** (permanente)
+- 💰 R$ 9,99/mês
+- 📁 Histórico completo de arquivos
+- ⚡ Prioridade no processamento
+
+### 📁 Gerenciamento de Arquivos
+- ✅ Página "Meus Arquivos" para usuários autenticados
+- ✅ Listagem de todos os arquivos enviados
+- ✅ Informações detalhadas (tamanho, downloads, expiração)
+- ✅ Copiar link de compartilhamento
+- ✅ Deletar arquivos com modal de confirmação
+- ✅ Indicadores visuais de status (Permanente/Temporário/Expirado)
+
+### 🔧 Painel Administrativo
+- ✅ Dashboard com estatísticas do sistema
+- ✅ Gerenciamento de usuários
+- ✅ Criação de novos usuários via interface
+- ✅ Gerenciamento de planos
+- ✅ Visualização de métricas (total de arquivos, usuários, armazenamento)
+
+### 🤖 Automação
 - ✅ Cron job para limpeza automática de arquivos expirados
-- ✅ Painel administrativo com estatísticas e gerenciamento
-- ✅ Gerenciamento de usuários (admin)
-- ✅ Gerenciamento de planos (admin)
-- ✅ Página de gerenciamento de arquivos do usuário
-- ✅ Interface 100% responsiva
-- ✅ Contador de downloads
-- ✅ Proteção de rotas (admin e files apenas para usuários logados)
-- ✅ CTA "Começar Gratuitamente" na home
+- ✅ Soft delete de arquivos
+- ✅ Remoção automática do Cloudflare R2
 
 ## 🛠️ Stack Tecnológica
 
-- **Frontend**: Next.js 15 (App Router), React 19, TypeScript
-- **Autenticação**: NextAuth.js v5 (Auth.js)
-- **Estilização**: Tailwind CSS v4, shadcn/ui
-- **Backend**: Next.js API Routes
-- **Banco de Dados**: MongoDB Atlas (via Prisma ORM)
-- **Armazenamento**: Cloudflare R2 (S3-compatible)
-- **Validação**: Zod
-- **Notificações**: React Toastify
-- **Requisições**: Axios, SWR
-- **Segurança**: bcryptjs para hash de senhas
+- **Framework:** Next.js 15 (App Router)
+- **Linguagem:** TypeScript
+- **Banco de Dados:** MongoDB Atlas
+- **ORM:** Prisma
+- **Armazenamento:** Cloudflare R2 (S3-compatible)
+- **Autenticação:** NextAuth.js v4
+- **UI:** shadcn/ui + Tailwind CSS v4
+- **Ícones:** Lucide React
+- **Notificações:** React Toastify
+- **HTTP Client:** Axios
+- **Data Fetching:** SWR
+- **Validação:** Zod
+- **Senha:** bcryptjs
 
 ## 📋 Pré-requisitos
 
 - Node.js 18+ 
-- Conta no MongoDB Atlas
-- Conta no Cloudflare R2
-- npm ou yarn
+- MongoDB Atlas (conta gratuita)
+- Cloudflare R2 (conta gratuita)
+- Git
 
-## ⚙️ Configuração
+## 🚀 Instalação
 
 ### 1. Clone o repositório
 
 ```bash
-git clone <seu-repositorio>
+git clone https://github.com/AssFerj/file-share.git
 cd file-share
 ```
 
@@ -52,10 +97,6 @@ cd file-share
 
 ```bash
 npm install
-
-# Instalar dependências adicionais de autenticação
-npm install next-auth@beta bcryptjs
-npm install -D @types/bcryptjs
 ```
 
 ### 3. Configure as variáveis de ambiente
@@ -64,264 +105,249 @@ Crie um arquivo `.env` na raiz do projeto:
 
 ```env
 # Database
-DATABASE_URL="mongodb+srv://usuario:senha@cluster.mongodb.net/file-share?retryWrites=true&w=majority"
-
-# Cloudflare R2
-R2_ACCOUNT_ID="seu_account_id"
-R2_ACCESS_KEY_ID="sua_access_key"
-R2_SECRET_ACCESS_KEY="sua_secret_key"
-R2_BUCKET="seu-bucket-name"
-R2_ENDPOINT="https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
-
-# App Config
-NEXT_PUBLIC_APP_URL="http://localhost:3000"
-FREE_PLAN_ID="" # Será gerado após o seed
+DATABASE_URL="mongodb+srv://usuario:senha@cluster.mongodb.net/file-share"
 
 # NextAuth
-AUTH_SECRET="gere-um-secret-aleatorio-aqui" # Execute: openssl rand -base64 32
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="sua-chave-secreta-aqui"
 
-# Cron Job Security
-CRON_SECRET="seu-secret-aleatorio-aqui"
+# Cloudflare R2
+R2_ACCOUNT_ID="seu-account-id"
+R2_ACCESS_KEY_ID="sua-access-key"
+R2_SECRET_ACCESS_KEY="sua-secret-key"
+R2_BUCKET="file-share"
+R2_ENDPOINT="https://seu-account-id.r2.cloudflarestorage.com"
+
+# App
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+FREE_PLAN_ID="id-do-plano-free"
+
+# Cron (para limpeza automática)
+CRON_SECRET="sua-chave-secreta-cron"
 ```
 
-**Gerar AUTH_SECRET:**
-```bash
-openssl rand -base64 32
-```
-
-### 4. Configure o Prisma e o banco de dados
+### 4. Configure o banco de dados
 
 ```bash
-# Gerar o Prisma Client
-npx prisma generate
-
-# Sincronizar o schema com o MongoDB
+# Sincronizar schema com MongoDB
 npx prisma db push
 
-# Popular o banco com dados iniciais (planos)
+# Popular banco com planos e usuário admin
 npm run db:seed
 ```
 
-**Importante**: Após executar o seed, copie o `FREE_PLAN_ID` exibido no console e adicione ao seu arquivo `.env`.
+O seed criará:
+- ✅ Plano Free (4GB, 5h)
+- ✅ Plano Premium (50GB, 30 dias)
+- ✅ Usuário admin com plano Premium
 
-### 5. Execute o projeto
+**Credenciais do Admin:**
+- Email: `assisjuniorcam@gmail.com`
+- Senha: `123456`
 
-```bash
-# Modo desenvolvimento
-npm run dev
+### 5. Configure o CORS no Cloudflare R2
 
-# Build para produção
-npm run build
-npm start
+No dashboard do Cloudflare R2, adicione a seguinte configuração CORS no seu bucket:
+
+```json
+[
+  {
+    "AllowedOrigins": ["http://localhost:3000", "https://seu-dominio.com"],
+    "AllowedMethods": ["GET", "PUT", "POST", "DELETE"],
+    "AllowedHeaders": ["*"],
+    "ExposeHeaders": ["ETag"],
+    "MaxAgeSeconds": 3000
+  }
+]
 ```
 
-Acesse: [http://localhost:3000](http://localhost:3000)
+### 6. Inicie o servidor de desenvolvimento
 
-## 👤 Primeiro Acesso
+```bash
+npm run dev
+```
 
-1. Acesse `/register` para criar sua primeira conta
-2. Selecione o plano gratuito
-3. Após criar a conta, faça login em `/login`
-4. Para tornar um usuário admin, edite diretamente no MongoDB:
-   ```javascript
-   db.User.updateOne(
-     { email: "seu@email.com" },
-     { $set: { role: "admin" } }
-   )
-   ```
+Acesse: `http://localhost:3000`
 
 ## 📁 Estrutura do Projeto
 
 ```
 file-share/
 ├── app/
-│   ├── api/
-│   │   ├── admin/
-│   │   │   ├── plans/route.ts      # Gerenciamento de planos
-│   │   │   ├── stats/route.ts      # Estatísticas do sistema
-│   │   │   └── users/route.ts      # Listagem de usuários
-│   │   ├── auth/
-│   │   │   ├── [...nextauth]/route.ts  # NextAuth handlers
-│   │   │   └── register/route.ts   # Registro de usuários
-│   │   ├── cron/
-│   │   │   └── cleanup/route.ts    # Limpeza automática
-│   │   ├── f/
-│   │   │   └── [id]/route.ts       # Download público
-│   │   ├── files/
-│   │   │   ├── route.ts            # Listar arquivos
-│   │   │   └── [id]/route.ts       # Deletar arquivo
-│   │   └── upload/
-│   │       ├── route.ts            # Iniciar upload
-│   │       └── complete/route.ts   # Finalizar upload
-│   ├── admin/
-│   │   ├── page.tsx                # Painel admin
-│   │   └── users/page.tsx          # Gestão de usuários
-│   ├── files/page.tsx              # Meus arquivos
-│   ├── login/page.tsx              # Login
-│   ├── register/page.tsx           # Cadastro
-│   ├── page.tsx                    # Home/Upload
-│   ├── layout.tsx                  # Layout principal
-│   ├── providers.tsx               # SessionProvider
-│   └── globals.css                 # Estilos globais
-├── components/ui/                  # Componentes shadcn/ui
+│   ├── admin/              # Painel administrativo
+│   │   ├── page.tsx        # Dashboard
+│   │   └── users/          # Gerenciamento de usuários
+│   ├── api/                # API Routes
+│   │   ├── admin/          # Rotas admin (stats, plans, users)
+│   │   ├── auth/           # Autenticação (NextAuth, register)
+│   │   ├── cron/           # Cron jobs (cleanup)
+│   │   ├── files/          # Gerenciamento de arquivos
+│   │   ├── f/              # Download público
+│   │   └── upload/         # Upload de arquivos
+│   ├── download/           # Página pública de download
+│   ├── files/              # Meus arquivos (autenticado)
+│   ├── login/              # Página de login
+│   ├── register/           # Página de registro
+│   ├── layout.tsx          # Layout principal
+│   └── page.tsx            # Home (upload público)
+├── components/
+│   ├── ui/                 # Componentes shadcn/ui
+│   └── SignOutButton.tsx   # Botão de logout
 ├── lib/
-│   ├── prisma.ts                   # Cliente Prisma
-│   ├── r2.ts                       # Cliente Cloudflare R2
-│   └── utils.ts                    # Utilitários
+│   ├── prisma.ts           # Cliente Prisma
+│   ├── r2.ts               # Cliente Cloudflare R2
+│   └── utils.ts            # Utilitários
 ├── prisma/
-│   ├── schema.prisma               # Schema do banco
-│   └── seed.ts                     # Dados iniciais
-├── types/
-│   └── next-auth.d.ts              # Types do NextAuth
-├── auth.ts                         # Configuração NextAuth
-├── auth.config.ts                  # Config de rotas protegidas
-├── middleware.ts                   # Middleware de autenticação
-└── package.json
+│   ├── schema.prisma       # Schema do banco
+│   └── seed.ts             # Seed de dados
+├── scripts/                # Scripts utilitários
+├── auth.ts                 # Configuração NextAuth
+├── middleware.ts           # Proteção de rotas
+└── types/                  # Tipos TypeScript
 ```
 
-## 🔄 Fluxo de Upload
+## 🔌 API Routes
 
-1. **Usuário seleciona arquivo** na interface
-2. **Frontend chama** `POST /api/upload` com metadados
-3. **Backend cria registro** no banco e gera URL pré-assinada do R2
-4. **Frontend faz upload direto** para o R2 usando a URL
-5. **Frontend chama** `POST /api/upload/complete` para confirmar
-6. **Backend retorna** link público de compartilhamento
-
-## 🔗 Endpoints da API
-
-### Autenticação
-- `POST /api/auth/register` - Registrar novo usuário
-- `POST /api/auth/[...nextauth]` - Login/Logout (NextAuth)
-
-### Upload
+### Públicas
 - `POST /api/upload` - Iniciar upload
 - `POST /api/upload/complete` - Finalizar upload
+- `GET /api/f/[token]` - Download público (redirect para R2)
+- `GET /api/files/public/[token]` - Metadados do arquivo público
+- `POST /api/auth/register` - Registrar novo usuário
+- `GET /api/cron/cleanup` - Limpar arquivos expirados (protegido por CRON_SECRET)
 
-### Arquivos
-- `GET /api/files` - Listar arquivos
+### Autenticadas
+- `GET /api/files` - Listar arquivos do usuário
 - `DELETE /api/files/[id]` - Deletar arquivo
-- `GET /api/f/[token]` - Download público (redirect)
 
-### Admin (requer autenticação admin)
+### Admin
 - `GET /api/admin/stats` - Estatísticas do sistema
 - `GET /api/admin/plans` - Listar planos
-- `POST /api/admin/plans` - Criar plano
+- `POST /api/admin/plans` - Criar/atualizar plano
 - `GET /api/admin/users` - Listar usuários
 
-### Cron
-- `GET /api/cron/cleanup` - Limpar arquivos expirados (requer `Authorization: Bearer ${CRON_SECRET}`)
+## 🔐 Segurança
 
-## 🔐 Rotas Protegidas
+- ✅ Senhas hasheadas com bcrypt
+- ✅ Proteção de rotas com middleware
+- ✅ Validação de ownership de arquivos
+- ✅ Soft delete de arquivos
+- ✅ Tokens únicos para compartilhamento
+- ✅ CORS configurado no R2
+- ✅ Variáveis de ambiente para secrets
 
-- `/admin/*` - Apenas usuários com role "admin"
-- `/files` - Apenas usuários autenticados
-- `/login` e `/register` - Públicas
-- `/` - Pública (mostra CTA para não autenticados, upload para autenticados)
+## 🤖 Cron Jobs
 
-## ⏰ Configurar Cron Job
-
-Para limpeza automática de arquivos expirados, configure um cron job (ex: Vercel Cron, GitHub Actions, ou crontab):
+Configure um cron job para limpar arquivos expirados:
 
 ```bash
 # Executar a cada hora
-curl -X GET https://seu-dominio.com/api/cron/cleanup \
-  -H "Authorization: Bearer ${CRON_SECRET}"
+0 * * * * curl -X GET "https://seu-dominio.com/api/cron/cleanup" -H "Authorization: Bearer SEU_CRON_SECRET"
 ```
 
-### Exemplo com Vercel Cron
+Ou use serviços como:
+- [Vercel Cron Jobs](https://vercel.com/docs/cron-jobs)
+- [cron-job.org](https://cron-job.org)
+- [EasyCron](https://www.easycron.com)
 
-Adicione ao `vercel.json`:
-
-```json
-{
-  "crons": [{
-    "path": "/api/cron/cleanup",
-    "schedule": "0 * * * *"
-  }]
-}
-```
-
-## 🎨 Personalização
-
-### Adicionar novo plano
-
-Acesse `/admin` (como admin) e use o formulário "Criar Novo Plano" ou via API:
-
-```bash
-curl -X POST http://localhost:3000/api/admin/plans \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Business",
-    "maxFileSize": 107374182400,
-    "retentionHrs": 2160,
-    "priceCents": 2999
-  }'
-```
-
-## 🔒 Segurança
-
-- ✅ Autenticação com NextAuth.js e JWT
-- ✅ Senhas com hash bcrypt
-- ✅ Proteção de rotas via middleware
-- ✅ Validação de dados com Zod
-- ✅ Cron job protegido por secret
-- ✅ URLs pré-assinadas com expiração
-- ✅ Validação de tamanho de arquivo
-- [ ] **TODO**: Adicionar rate limiting
-- [ ] **TODO**: Implementar CORS adequado
-- [ ] **TODO**: Adicionar 2FA (opcional)
-
-## 📦 Deploy
+## 🚀 Deploy
 
 ### Vercel (Recomendado)
 
+1. Faça push do código para GitHub
+2. Importe o projeto no Vercel
+3. Configure as variáveis de ambiente
+4. Deploy!
+
 ```bash
-# Instalar Vercel CLI
-npm i -g vercel
-
-# Deploy
-vercel
-
-# Adicionar variáveis de ambiente no dashboard da Vercel
+npm run build
 ```
 
-**Importante**: No Vercel, adicione todas as variáveis de ambiente listadas acima.
+### Outras Plataformas
 
-### Outras plataformas
+O projeto é compatível com qualquer plataforma que suporte Next.js:
+- Netlify
+- Railway
+- Render
+- AWS Amplify
 
-O projeto é compatível com qualquer plataforma que suporte Next.js 15+.
+## 📊 Comandos Úteis
+
+```bash
+# Desenvolvimento
+npm run dev
+
+# Build de produção
+npm run build
+
+# Iniciar produção
+npm start
+
+# Prisma
+npx prisma studio          # Interface visual do banco
+npx prisma db push         # Sincronizar schema
+npx prisma generate        # Gerar cliente Prisma
+npm run db:seed            # Popular banco de dados
+
+# Scripts utilitários
+npx tsx scripts/check-files.ts          # Verificar arquivos no banco
+npx tsx scripts/check-deleted.ts        # Verificar arquivos deletados
+npx tsx scripts/restore-files.ts        # Restaurar arquivos deletados
+npx tsx scripts/cleanup-orphan-files.ts # Limpar arquivos órfãos
+npx tsx scripts/debug-query.ts          # Debug de queries
+```
 
 ## 🐛 Troubleshooting
 
-### Erro: "Missing required environment variable: DATABASE_URL"
+### Arquivos não aparecem em "Meus Arquivos"
 
-Certifique-se de que o arquivo `.env` existe e contém todas as variáveis necessárias.
+Execute o script de debug:
+```bash
+npx tsx scripts/debug-query.ts
+```
 
-### Erro: "Can't resolve 'tw-animate-css'"
+### Erro de CORS no upload
 
-Já corrigido. Se persistir, remova a linha `@import "tw-animate-css";` do `globals.css`.
+Verifique se o CORS está configurado corretamente no Cloudflare R2.
 
-### Upload falha
+### Erro "Unknown field 'plan'"
 
-1. Verifique as credenciais do R2
-2. Confirme que o bucket existe
-3. Verifique o `FREE_PLAN_ID` no `.env`
+Regenere o Prisma Client:
+```bash
+npx prisma generate
+```
 
-### Erro de autenticação
+## 📝 TODO / Melhorias Futuras
 
-1. Verifique se o `AUTH_SECRET` está configurado
-2. Confirme que o NextAuth está instalado: `npm install next-auth@beta`
-3. Limpe os cookies do navegador
+- [ ] Sistema de pagamento (Stripe/Mercado Pago)
+- [ ] Rate limiting para uploads
+- [ ] Compressão de imagens
+- [ ] Preview de arquivos (imagens, PDFs)
+- [ ] Compartilhamento com senha
+- [ ] Estatísticas de downloads por arquivo
+- [ ] Notificações por email
+- [ ] Dark mode
+- [ ] Internacionalização (i18n)
+- [ ] Testes automatizados
 
-## 📝 Licença
+## 📄 Licença
 
-MIT
+Este projeto está sob a licença MIT.
 
-## 👨‍💻 Desenvolvido por
+## 👨‍💻 Autor
 
-Desenvolvido com Next.js, TypeScript e ❤️
+**Assis Junior**
+- GitHub: [@AssFerj](https://github.com/AssFerj)
+- Email: assisjuniorcam@gmail.com
+
+## 🙏 Agradecimentos
+
+- [Next.js](https://nextjs.org/)
+- [Prisma](https://www.prisma.io/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Cloudflare R2](https://www.cloudflare.com/products/r2/)
+- [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
 
 ---
 
-**Dúvidas?** Abra uma issue no repositório!
+⭐ Se este projeto foi útil para você, considere dar uma estrela no GitHub!
