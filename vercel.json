@@ -2,6 +2,5 @@
   "crons": [{
     "path": "/api/cron/cleanup",
     "schedule": "0 0 * * *"
-  }],
-  "installCommand": "npm install --legacy-peer-deps && npm run build"
+  }]
 }
