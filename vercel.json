@@ -1,6 +1,7 @@
 {
-    "crons": [{
-      "path": "/api/cron/cleanup",
-      "schedule": "0 0 * * *"
-    }]
+  "crons": [{
+    "path": "/api/cron/cleanup",
+    "schedule": "0 0 * * *"
+  }],
+  "buildCommand": "npm install --legacy-peer-deps && npm run build"
 }
