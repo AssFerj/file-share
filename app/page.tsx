@@ -204,10 +204,10 @@ export default function HomePage() {
       </div>
 
       {/* Pricing Section */}
-      <div className="max-w-4xl mx-auto">
+      {/* <div className="max-w-4xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-8">Planos e Preços</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Free Plan */}
+          
           <Card className="border-2">
             <CardHeader>
               <div className="flex items-center justify-between">
@@ -243,7 +243,7 @@ export default function HomePage() {
             </CardContent>
           </Card>
 
-          {/* Premium Plan */}
+          
           <Card className="border-2 border-blue-500 relative">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
               <Badge className="bg-blue-500">Mais Popular</Badge>
@@ -290,7 +290,7 @@ export default function HomePage() {
             </CardContent>
           </Card>
         </div>
-      </div>
+      </div> */}
 
       {/* CTA Section */}
       <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
