@@ -10,6 +10,8 @@ import { LogOut, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Providers } from "./providers";
 import { SignOutButton } from "@/components/SignOutButton";
+import { Analytics } from "@vercel/analytics/react";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
 export const metadata = {
   title: "FileShare — Compartilhe arquivos facilmente",
@@ -71,6 +73,8 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
             </header>
             {children}
             <ToastContainer position="bottom-right" />
+            <Analytics />
+            <GoogleAnalytics />
           </main>
         </Providers>
       </body>
