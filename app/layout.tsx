@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/auth";
-import { LogOut, User } from "lucide-react";
+import { User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Providers } from "./providers";
 import { SignOutButton } from "@/components/SignOutButton";
@@ -16,6 +16,20 @@ import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 export const metadata = {
   title: "FileShare — Compartilhe arquivos facilmente",
   description: "Envie e compartilhe arquivos com links temporários.",
+  openGraph: {
+    title: "FileShare — Compartilhe arquivos facilmente",
+    description: "Envie e compartilhe arquivos com links temporários.",
+    images: [
+      {
+        url: "https://file-share-orpin.vercel.app/og-image.png",
+        width: 1200,
+        height: 630,
+        siteName: "FileShare",
+        type: "website",
+        locale: "pt-BR",
+      },
+    ],
+  },
 };
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
