@@ -293,7 +293,7 @@ export default function HomePage() {
       </div> */}
 
       {/* CTA Section */}
-      <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
+      {/* <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
         <CardContent className="p-8 text-center">
           <h2 className="text-2xl font-bold mb-4">Pronto para começar?</h2>
           <p className="text-gray-700 mb-6">
@@ -313,7 +313,7 @@ export default function HomePage() {
             </Link>
           </div>
         </CardContent>
-      </Card>
+      </Card> */}
     </div>
   );
 }

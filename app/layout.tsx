@@ -68,10 +68,10 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                   </>
                 ) : (
                   <>
-                    <Link href="/" className="text-sm text-gray-600 hover:text-gray-900">
+                    {/* <Link href="/" className="text-sm text-gray-600 hover:text-gray-900">
                       Home
-                    </Link>
-                    <Link href="/login">
+                    </Link> */}
+                    {/* <Link href="/login">
                       <Button variant="ghost" size="sm">
                         Entrar
                       </Button>
@@ -80,7 +80,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
                       <Button size="sm">
                         Começar Grátis
                       </Button>
-                    </Link>
+                    </Link> */}
                   </>
                 )}
               </nav>
